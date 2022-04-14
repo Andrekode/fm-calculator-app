@@ -1,43 +1,42 @@
-import React from 'react'
-import { nanoid } from 'nanoid'
+import React, { useState } from 'react'
+import { ThemeProvider } from 'styled-components'
 
-import { StyledButton } from './Components/Button/Button.style'
-import { Container } from './Container.style'
+import { buttons } from './helper/renderButtonLogic' // renders multiple buttons based on condit. Used to be in App function
+import { StyledTitle } from './Components/title/style'
+import { StyledInputRange } from './Components/inputRange/style'
+import { StyledInputDisplay } from './Components/inputDisplay/style'
+import { Container, FlexContainer } from './Components/container/style'
+import { ContainerGridButtons } from './Components/gridWrapper/style'
 import { GlobalStyles } from './GlobalStyles.styles'
-import Button from './Components/Button'
+import { themeOne, themeTwo, themeThree } from './Components/themes/themes'
 
 export default function App() {
-    
+  const [theme, setTheme] = useState({ value: '1' })
 
-    const buttonValues = [
-        7,8,9,'DEL',
-        4,5,6,"+",
-        1,2,3,"-",
-        ".",0,"/","x",
-        "RESET","="
-    ]
+  const handleChange = (e) => {
+    const { value } = e.target
+    setTheme({ value })
+  }
 
-    function handleClick(e) {
-        console.log(e.target)
-    }
-
-    
-
-   
-
-    const buttons = buttonValues.map((btn, i) => {
-        return (
-            <StyledButton value={btn} key={i} handleClick={handleClick} backgroundColor='red'> </StyledButton>
-        )
-    })
-
-    
-    return (
-        <Container>
-            <GlobalStyles />
-           {buttons}
-        </Container>
-            
-        
-    )
+  return (
+    <ThemeProvider
+      theme={
+        theme.value === '1'
+          ? themeOne
+          : theme.value === '2'
+          ? themeTwo
+          : themeThree
+      }
+    >
+      <Container>
+        <GlobalStyles />
+        <FlexContainer>
+          <StyledTitle />
+          <StyledInputRange value={theme.value} handleChange={handleChange} />
+        </FlexContainer>
+        <StyledInputDisplay />
+        <ContainerGridButtons>{buttons}</ContainerGridButtons>
+      </Container>
+    </ThemeProvider>
+  )
 }
