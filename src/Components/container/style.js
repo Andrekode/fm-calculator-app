@@ -6,6 +6,10 @@ export const Container = styled.div`
   margin: auto;
   max-width: 375px;
   padding: 1em;
+
+  @media (min-width: 810px) {
+    max-width: 600px;
+  }
 `
 
 export const FlexContainer = styled.div`
