@@ -10,4 +10,6 @@ export const Container = styled.div`
 
 export const FlexContainer = styled.div`
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.875em;
 `

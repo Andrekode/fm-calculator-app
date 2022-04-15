@@ -15,28 +15,32 @@ export default function App() {
 
   const handleChange = (e) => {
     const { value } = e.target
-    setTheme({ value })
+    setTheme((prevTheme) => {
+      return { ...prevTheme, value }
+    })
   }
 
   return (
-    <ThemeProvider
-      theme={
-        theme.value === '1'
-          ? themeOne
-          : theme.value === '2'
-          ? themeTwo
-          : themeThree
-      }
-    >
-      <Container>
-        <GlobalStyles />
-        <FlexContainer>
-          <StyledTitle />
-          <StyledInputRange value={theme.value} handleChange={handleChange} />
-        </FlexContainer>
-        <StyledInputDisplay />
-        <ContainerGridButtons>{buttons}</ContainerGridButtons>
-      </Container>
-    </ThemeProvider>
+    <React.StrictMode>
+      <ThemeProvider
+        theme={
+          theme.value === '1'
+            ? themeOne
+            : theme.value === '2'
+            ? themeTwo
+            : themeThree
+        }
+      >
+        <Container>
+          <GlobalStyles />
+          <FlexContainer>
+            <StyledTitle />
+            <StyledInputRange value={theme.value} handleChange={handleChange} />
+          </FlexContainer>
+          <StyledInputDisplay />
+          <ContainerGridButtons>{buttons}</ContainerGridButtons>
+        </Container>
+      </ThemeProvider>
+    </React.StrictMode>
   )
 }

@@ -11,7 +11,7 @@ export const StyledButton = styled(Button)`
   justify-content: center;
   align-items: center;
   padding: 1.25rem;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0 5px ${(props) => props.theme.keysPrimaryShdw};
 
   border: 0;
@@ -22,6 +22,7 @@ export const StyledButtonSecondary = styled(StyledButton)`
   background-color: ${(props) => props.theme.keysSecondaryBg};
   color: #ffff;
   box-shadow: 0 5px ${(props) => props.theme.keysSecondaryShdw};
+  font-weight: 400;
 
   &:nth-last-of-type(2) {
     grid-column: 1 / span 2;
