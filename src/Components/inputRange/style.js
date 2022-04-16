@@ -11,7 +11,8 @@ export const StyledInputRange = styled(InputRange)`
   appearance: none;
   max-width: 60px;
   width: 100%;
-  margin: 0;
+  grid-area: inputrange;
+
   background-color: transparent;
 
   &:focus {
@@ -21,7 +22,7 @@ export const StyledInputRange = styled(InputRange)`
   &::-webkit-slider-runnable-track {
     width: 100%;
     height: ${height};
-    background: green;
+    background: ${(props) => props.theme.keyPadnTglBg};
   }
 
   &::-webkit-slider-thumb {
@@ -40,7 +41,6 @@ export const StyledInputRange = styled(InputRange)`
 
   &::-moz-range-track {
     height: ${height};
-
     border-radius: 10px;
     background: ${(props) => props.theme.keyPadnTglBg};
   }
@@ -48,7 +48,6 @@ export const StyledInputRange = styled(InputRange)`
   &::-moz-range-thumb {
     appearance: none;
     margin: 0;
-
     height: ${thumbHeight};
     width: ${thumbHeight};
     background: ${(props) => props.theme.keySingularBgNTglclr};
@@ -56,4 +55,70 @@ export const StyledInputRange = styled(InputRange)`
     border: 0;
     transition: background-color 150ms;
   }
+
+  &::-ms-track {
+    width: 100%;
+    height: ${height};
+    border-radius: 10px;
+    border: 0;
+    /* color needed to hide track marks */
+    color: transparent;
+    background: transparent;
+  }
+
+  &::-ms-fill-lower {
+    background: ${(props) => props.theme.keyPadnTglBg};
+  }
+
+  &::-ms-fill-upper {
+    background: ${(props) => props.theme.keyPadnTglBg};
+  }
+
+  &::-ms-thumb {
+    appearance: none;
+    height: ${thumbHeight};
+    width: ${thumbHeight};
+    background: ${(props) => props.theme.keySingularBgNTglclr};
+    border-radius: 100%;
+    border: 0;
+    transition: background-color 150ms;
+    /* IE Edge thinks it can support -webkit prefixes */
+    top: 0;
+    margin: 0;
+    box-shadow: none;
+  }
+`
+
+export const WrapperGridInputRange = styled.div`
+  display: grid;
+
+  grid-template-areas:
+    '.     text       text2       text3'
+    'lable inputrange inputrange inputrange';
+`
+
+export const StyledLabel = styled.label`
+  color: ${(props) => props.theme.titleClr};
+  margin-right: 1em;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: 700;
+  grid-area: lable;
+`
+
+export const RangeTextOne = styled.p`
+  font-weight: 700;
+  color: ${(props) => props.theme.titleClr};
+  justify-self: start;
+  grid-area: text;
+`
+
+export const RangeTextTwo = styled(RangeTextOne)`
+  justify-self: center;
+  grid-area: text2;
+`
+
+export const RangeTextThree = styled(RangeTextOne)`
+  justify-self: end;
+  grid-area: text3;
 `
