@@ -13,8 +13,12 @@ export const StyledButton = styled(Button)`
   padding: 1.25rem;
   border-radius: 5px;
   box-shadow: 0 5px ${(props) => props.theme.keysPrimaryShdw};
-
+  cursor: pointer;
   border: 0;
+
+  &:hover {
+    scale: 1.1;
+  }
 `
 
 export const StyledButtonSecondary = styled(StyledButton)`

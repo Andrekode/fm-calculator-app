@@ -29,7 +29,7 @@ export default function App() {
   const [inpdspValue, setInpdspValue] = useState({
     number: 0,
     operator: '',
-    result: 10,
+    result: 0,
   })
 
   const handleChange = (e) => {
@@ -41,13 +41,35 @@ export default function App() {
 
   const handleClick = (e) => {}
 
+  const handleReset = () => {
+    setInpdspValue((prevInpdsValue) => {
+      return { ...prevInpdsValue, number: 0, operator: '', result: 0 }
+    })
+  }
+
+  const handleDelete = () => {
+    console.log('Im delete')
+  }
+
+  const handleEqual = () => {
+    console.log('Im Equal')
+  }
+
+  const handlePlus = () => {
+    console.log('Im plus')
+  }
+
+  const handleMinus = () => {
+    console.log('Im minus')
+  }
+
   const buttons = buttonValues.map((btn, i) => {
     if (btn === 'RESET' || btn === 'DEL') {
       return (
         <StyledButtonSecondary
           value={btn}
           key={i}
-          handleClick={handleClick}
+          handleClick={btn === 'RESET' ? handleReset : handleDelete}
         ></StyledButtonSecondary>
       )
     } else if (btn === '=') {
@@ -55,7 +77,7 @@ export default function App() {
         <StyledButtonSingular
           value={btn}
           key={i}
-          handleClick={handleClick}
+          handleClick={handleEqual}
         ></StyledButtonSingular>
       )
     } else {
@@ -63,7 +85,9 @@ export default function App() {
         <StyledButton
           value={btn}
           key={i}
-          handleClick={handleClick}
+          handleClick={
+            btn === '+' ? handlePlus : btn === '-' ? handleMinus : handleClick
+          }
         ></StyledButton>
       )
     }
