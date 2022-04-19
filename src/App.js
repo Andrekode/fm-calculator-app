@@ -39,7 +39,30 @@ export default function App() {
     })
   }
 
-  const handleClick = (e) => {}
+  // regex by Emissary Stack overflow
+
+  const toLocaleString = (num) =>
+    String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1 ')
+
+  const removeSpaces = (num) => num.toString().replace(/\s/g, '')
+
+  const numHandler = (e) => {
+    e.preventDefault()
+    const value = e.target.innerHTML
+
+    if (removeSpaces(inpdspValue.number).length < 15) {
+      setInpdspValue({
+        ...inpdspValue,
+        number:
+          inpdspValue.number === 0 && value === '0'
+            ? '0'
+            : removeSpaces(inpdspValue.number) % 1 === 0
+            ? toLocaleString(Number(removeSpaces(inpdspValue.number + value)))
+            : toLocaleString(inpdspValue.number + value),
+        result: !inpdspValue.operator ? 0 : inpdspValue.result,
+      })
+    }
+  }
 
   const handleReset = () => {
     setInpdspValue((prevInpdsValue) => {
@@ -52,18 +75,62 @@ export default function App() {
   }
 
   const handleEqual = () => {
-    console.log('Im Equal')
+    if (inpdspValue.operator && inpdspValue.number) {
+      const math = (a, b, sign) =>
+        sign === '+'
+          ? a + b
+          : sign === '-'
+          ? a - b
+          : sign === 'x'
+          ? a * b
+          : a / b
+
+      setInpdspValue({
+        ...inpdspValue,
+        result:
+          inpdspValue.number === '0' && inpdspValue.operator === '/'
+            ? "Can't divide with 0"
+            : toLocaleString(
+                math(
+                  Number(removeSpaces(inpdspValue.result)),
+                  Number(removeSpaces(inpdspValue.number)),
+                  inpdspValue.operator
+                )
+              ),
+        operator: '',
+        number: 0,
+      })
+    }
   }
 
-  const handlePlus = () => {
-    console.log('Im plus')
+  const operatorHandler = (e) => {
+    e.preventDefault()
+    const value = e.target.innerHTML
+
+    setInpdspValue({
+      ...inpdspValue,
+      operator: value,
+      result:
+        !inpdspValue.result && inpdspValue.number
+          ? inpdspValue.number
+          : inpdspValue.result,
+      number: 0,
+    })
   }
 
-  const handleMinus = () => {
-    console.log('Im minus')
+  const commaHandler = (e) => {
+    e.preventDefault()
+    const value = e.target.innerHTML
+
+    setInpdspValue({
+      ...inpdspValue,
+      number: !inpdspValue.number.toString().includes('.')
+        ? inpdspValue.number + value
+        : inpdspValue.number,
+    })
   }
 
-  const buttons = buttonValues.map((btn, i) => {
+  const buttons = buttonValues.flat().map((btn, i) => {
     if (btn === 'RESET' || btn === 'DEL') {
       return (
         <StyledButtonSecondary
@@ -86,7 +153,11 @@ export default function App() {
           value={btn}
           key={i}
           handleClick={
-            btn === '+' ? handlePlus : btn === '-' ? handleMinus : handleClick
+            btn === '/' || btn === '+' || btn === '-' || btn === 'x'
+              ? operatorHandler
+              : btn === '.'
+              ? commaHandler
+              : numHandler
           }
         ></StyledButton>
       )

@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function CalcInputDisplay({ className, value }) {
-  const { number, operator, result } = value
+  const { number, result } = value
 
-  return <h2 className={className}>{number}</h2>
+  return <h2 className={className}>{number ? number : result}</h2>
 }
