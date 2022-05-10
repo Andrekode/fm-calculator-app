@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/fm-calculator-app/static/js/main.5c52da7d.js",
+    "index.html": "/fm-calculator-app/index.html",
+    "main.5c52da7d.js.map": "/fm-calculator-app/static/js/main.5c52da7d.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.5c52da7d.js"
+  ]
+}

@@ -2,14 +2,13 @@ import styled from 'styled-components'
 import InputRange from './index'
 
 const height = '20px'
-const thumbHeight = 30
-const trackHeight = '16px'
+const thumbHeight = 15
 
 export const StyledInputRange = styled(InputRange)`
   overflow: hidden;
   display: block;
   appearance: none;
-  max-width: 60px;
+  max-width: 75px;
   width: 100%;
   grid-area: inputrange;
 
@@ -23,6 +22,9 @@ export const StyledInputRange = styled(InputRange)`
     width: 100%;
     height: ${height};
     background: ${(props) => props.theme.keyPadnTglBg};
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+    border-radius: 10px;
   }
 
   &::-webkit-slider-thumb {
@@ -39,7 +41,8 @@ export const StyledInputRange = styled(InputRange)`
     transition: background-color 150ms;
   }
 
-  &::-moz-range-track {
+  &::-moz-range-track,
+  ::-moz-range-progress {
     height: ${height};
     border-radius: 10px;
     background: ${(props) => props.theme.keyPadnTglBg};
@@ -48,11 +51,12 @@ export const StyledInputRange = styled(InputRange)`
   &::-moz-range-thumb {
     appearance: none;
     margin: 0;
-    height: ${thumbHeight};
-    width: ${thumbHeight};
+    height: ${thumbHeight}px;
+    width: ${thumbHeight}px;
     background: ${(props) => props.theme.keySingularBgNTglclr};
     border-radius: 100%;
     border: 0;
+
     transition: background-color 150ms;
   }
 
@@ -76,8 +80,8 @@ export const StyledInputRange = styled(InputRange)`
 
   &::-ms-thumb {
     appearance: none;
-    height: ${thumbHeight};
-    width: ${thumbHeight};
+    height: ${thumbHeight}px;
+    width: ${thumbHeight}px;
     background: ${(props) => props.theme.keySingularBgNTglclr};
     border-radius: 100%;
     border: 0;
@@ -109,7 +113,7 @@ export const StyledLabel = styled.label`
 export const RangeTextOne = styled.p`
   font-weight: 700;
   color: ${(props) => props.theme.titleClr};
-  justify-self: start;
+  justify-self: center;
   grid-area: text;
 `
 
@@ -119,6 +123,6 @@ export const RangeTextTwo = styled(RangeTextOne)`
 `
 
 export const RangeTextThree = styled(RangeTextOne)`
-  justify-self: end;
+  justify-self: center;
   grid-area: text3;
 `
